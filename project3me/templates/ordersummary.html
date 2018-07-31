@@ -1,0 +1,49 @@
+<!-- templates/home.html-->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated%}
+
+<table class="table">
+    <thead>
+    <tr>
+
+        <th scope="col">Username</th>
+
+        <th scope="col">Items</th>
+
+        <th scope="col">Status</th>
+
+        <th scope="col">Price</th>
+
+        <th scope="col">Date</th>
+
+
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for item in orders %}
+    <tr>
+
+        <td scope="row">{{ item.Username }}</td>
+
+        <td>{{ item.Items }}</td>
+
+        <td>{{ item.Status }}</td>
+
+        <td>{{ item.Price }}</td>
+
+        <td>{{ item.Date }}</td>
+
+
+
+    </tr>
+
+    {% endfor %}
+     </tbody>
+</table>
+{% endif %}
+{% endblock %}

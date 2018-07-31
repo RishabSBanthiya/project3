@@ -1,0 +1,37 @@
+<!-- templates/home.html-->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h1 style="text-align:center;">CART</h1>
+<table class="table">
+
+      <thead>
+    <tr>
+        <th scope="col">Username</th>
+
+        <th scope="col">Items</th>
+
+        <th scope="col">Totals</th>
+
+    </tr>
+     </thead>
+    {% for item in cart %}
+    <tr scope="row">
+        <td>{{ item.Username }}</td>
+
+        <td>{{ item.Items }}</td>
+
+        <td>{{ item.Price }}</t>
+
+
+    </tr>
+    {% endfor %}
+</table>
+<br>
+<h6>Total:{{ total }}</h6>
+<a id="place" class=" btn btn-light" href="{% url 'order' %}">Place Order</a>
+{% endif %}
+{% endblock %}

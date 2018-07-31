@@ -1,0 +1,39 @@
+<!-- templates/home.html-->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1 style="text-align:center;">DINNER</h1>
+
+
+<table class="table">
+    <thead>
+  <a class="btn btn-light" href="{% url 'view' %}">View Orders</a>
+    <tr>
+        <th scope="col">Type</th>
+
+        <th scope="col">Size</th>
+
+        <th scope="col">Price</th>
+
+    </thead>
+    </tr>
+    {% for item in Dinner %}
+     <tbody>
+    <tr scope="row">
+        <td>{{ item.Dinner }}</td>
+
+        <td>{{ item.Size }}</td>
+
+        <td>{{ item.Price }}</td>
+
+
+<td> <a class=" btn btn-outline-secondary" href="{% url 'add' item %}">Add To Cart</a> </td>
+    </tr>
+     </tbody>
+    {% endfor %}
+
+</table>
+
+{% endblock %}
