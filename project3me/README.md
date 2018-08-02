@@ -28,3 +28,8 @@ order.html - Shows all orders from a specific users
 
 ORDERS:
 -admin.py : Allows superuser to alter databases in django administration
+
+
+
+I created forms for toppings however I couldn't figure out how to get the value of toppings from the form in my pizza menu
+so that functionality is not complete

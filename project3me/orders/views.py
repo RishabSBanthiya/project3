@@ -6,6 +6,7 @@ from orders.models import *
 from django.contrib.auth import login, authenticate
 from datetime import datetime
 from decimal import *
+from orders.form import *
 
 
 
@@ -28,6 +29,7 @@ def pizzachoices(request):
 def menupizza(request):
 
      context = {
+       "form": PizzaForm(request.POST),
        "pizza" : Pizza.objects.all()
      }
      return render(request, "menu.html",context)
