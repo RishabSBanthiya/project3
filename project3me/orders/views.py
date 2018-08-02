@@ -87,10 +87,11 @@ def add_to_cart(request,**kwargs):
 def view(request):
 
     Username = request.user.username
-    order=Orders.objects.all().filter(Username=Username,Status="Ordered")
+    order=Orders.objects.all().filter(Username=Username)
+    orderall=Orders.objects.all().filter(Username=Username,Status="Ordered")
     global total
     total=0
-    for item in order:
+    for item in orderall:
         total=total+item.Price
 
     context = {
@@ -126,7 +127,7 @@ def add_to_order(request):
 
 
     for item in cart:
-        order_instance = Orders.objects.create(Username=username,Items=item.Items,Price=item.Price,Date=datetime.now())
+        order_instance = Orders.objects.create(Username=username,Items=item.Items,Price=item.Price,Date=datetime.now(),Status="Ordered")
         global totalcart
         totalcart=totalcart+item.Price
 

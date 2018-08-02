@@ -157,9 +157,20 @@ class Salad(models.Model):
 #-------------------------------------------------------------------------
 class Orders(models.Model):
 
+    Ordered="Ordered"
+    Delivered="Delivered"
+    Incart="In Cart"
+
+    Status_Choices=(
+        (Ordered,'Ordered'),
+        (Delivered,'Delivered'),
+        (Incart,'In cart')
+        )
+
+
     Username=models.CharField( max_length=64)
     Items=models.TextField()
-    Status=models.TextField(default="Ordered")
+    Status=models.TextField(choices=Status_Choices, default="In Cart")
     Date=models.DateField(datetime.now())
     Price=models.DecimalField(
         max_digits=5,
@@ -177,10 +188,19 @@ class Orders(models.Model):
 #-------------------------------------------------------------------------
 
 class Cart(models.Model):
+    Ordered="Ordered"
+    Delivered="Delivered"
+    Incart="In Cart"
+
+    Status_Choices=(
+        (Ordered,'Ordered'),
+        (Delivered,'Delivered'),
+        (Incart,'In cart')
+        )
 
     Username=models.CharField( max_length=64)
     Items=models.TextField()
-    Status=models.TextField(default="In Cart")
+    Status=models.TextField(choices=Status_Choices, default="In Cart")
     Price=models.DecimalField(
         max_digits=5,
         decimal_places=2,
