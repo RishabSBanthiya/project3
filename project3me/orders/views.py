@@ -19,14 +19,17 @@ def index(request):
     return HttpResponse("Project 3: TODO")
 #-------------------------------------------------------------------------
 def menu(request):
+    # Renders page with list of categories
 
      return render(request, "mainmenu.html")
-
+#-------------------------------------------------------------------------
 def pizzachoices(request):
+       # Renders page with list of Pizza Choices
 
      return render(request, "pizzachoices.html")
-
+#-------------------------------------------------------------------------
 def menupizza(request):
+     #Renders page with list of pizza options along with the topping form
 
      context = {
 
@@ -34,37 +37,40 @@ def menupizza(request):
        "pizza" : Pizza.objects.all()
      }
      return render(request, "menu.html",context)
-
+#-------------------------------------------------------------------------
 def menudinner(request):
-
+     # Renders page with list of Dinner Choices
      context = {
        "Dinner" :Dinner.objects.all()
      }
      return render(request, "dinner.html",context)
-
+#-------------------------------------------------------------------------
 def menusalad(request):
-
+      # Renders page with list of Salad Choices
      context = {
        "salad" : Salad.objects.all()
      }
      return render(request, "salad.html",context)
-
+#-------------------------------------------------------------------------
 def menusub(request):
+    # Renders page with list of Sub Choices
 
      context = {
        "Sub" : Sub.objects.all()
      }
      return render(request, "sub.html",context)
-
-
+#-------------------------------------------------------------------------
 def menupasta(request):
+     # Renders page with list of Pasta Choices
+
 
      context = {
        "Pasta" : Pasta.objects.all()
      }
      return render(request, "pasta.html",context)
-
+#-------------------------------------------------------------------------
 def menupizzasic(request):
+     #Renders page with list of sicilian pizza options along with the topping form
 
      context = {
          "form": PizzaForm(request.POST),
@@ -76,15 +82,13 @@ def menupizzasic(request):
 #-------------------------------------------------------------------------
 def add_to_cart(request,**kwargs):
 
-    username = request.user.username
-    items=kwargs['items']
-    price=kwargs['prices']
-    top=(kwargs['top'])
-    newtop = top[0]
+    username = request.user.username # Retrieves username of current user
+    items=kwargs['items'] # Item summary as a string
+    price=kwargs['prices'] # Price of item
 
     cart_instance = Cart.objects.create(Username=username,Items=items,Price=price)
-    cart_instance.Toppings.add(2)
-    cart_instance.save()
+    # cart_instance.Toppings.add(2)
+    # cart_instance.save()
 
     context = {
        "order" : Cart.objects.all().filter(Username=username),
@@ -94,10 +98,11 @@ def add_to_cart(request,**kwargs):
 #-------------------------------------------------------------------------
 def view(request):
 
-    Username = request.user.username
-    order=Orders.objects.all().filter(Username=Username)
-    orderall=Orders.objects.all().filter(Username=Username,Status="Ordered")
-    global total
+    Username = request.user.username # Retrieves username of current user
+    order=Orders.objects.all().filter(Username=Username) # Retrieves all orders of current user
+    orderall=Orders.objects.all().filter(Username=Username,Status="Ordered")  # Retrieves all pending orders of current user
+
+    global total #Calculates total due by user
     total=0
     for item in orderall:
         total=total+item.Price
@@ -110,13 +115,14 @@ def view(request):
     return render(request, "order.html",context)
 #-------------------------------------------------------------------------
 def viewcart(request):
+
     global totalcarttemp
     totalcarttemp=Decimal(0.00)
-    Username = request.user.username
+    Username = request.user.username # Retrieves username of current user
     cart = Cart.objects.all().filter(Username=Username)
 
     for item in cart:
-        totalcarttemp=item.Price + totalcarttemp
+        totalcarttemp=item.Price + totalcarttemp  #Calculates total of items in cart
 
     context = {
        "cart" : Cart.objects.all().filter(Username=Username),
@@ -126,10 +132,10 @@ def viewcart(request):
     return render(request, "cart.html",context)
 #-------------------------------------------------------------------------
 def add_to_order(request):
-    username = request.user.username
-    cart=Cart.objects.all().filter(Username=username)
-    order=Orders.objects.all().filter(Username=username)
-    ordernow=Orders.objects.all().filter(Username=username,Status="Ordered")
+    username = request.user.username # Retrieves username of current user
+    cart=Cart.objects.all().filter(Username=username) # Retrieves items in cart of current user
+    order=Orders.objects.all().filter(Username=username) # Retrieves orders of current user
+    ordernow=Orders.objects.all().filter(Username=username,Status="Ordered") # Retrieves pending orders of current user
     global total
     global totalcart
 
@@ -137,14 +143,14 @@ def add_to_order(request):
     for item in cart:
         order_instance = Orders.objects.create(Username=username,Items=item.Items,Price=item.Price,Date=datetime.now(),Status="Ordered")
         global totalcart
-        totalcart=totalcart+item.Price
+        totalcart=totalcart+item.Price  #Calculates total of items in cart
 
 
-    total=total+totalcart
+    total=total+totalcart  #Calculates total of order
 
     for item in cart:
-        cart=Cart.objects.all().filter(Username=username).delete()
-        totalcart=0
+        cart=Cart.objects.all().filter(Username=username).delete() #Clears cart
+        totalcart=0 # Resets carts total
 
 
     context = {
@@ -171,8 +177,8 @@ def signup(request):
 
 #-------------------------------------------------------------------------
 def ordersummary(request):
+    ''' Shows entire order history of user'''
     Username = request.user.username
-
     context = {
        "orders" : Orders.objects.all()
      }
@@ -180,21 +186,32 @@ def ordersummary(request):
     return render(request, "ordersummary.html",context)
 #-------------------------------------------------------------------------
 def about(request):
+    #Renders page with contact info
 
     return render(request, "about.html",)
 #-------------------------------------------------------------------------
 def checkout(request):
+    ''' Confirms order with user'''
     global totalcarttemp
     totalcarttemp=Decimal(0.00)
-    Username = request.user.username
-    cart = Cart.objects.all().filter(Username=Username)
+
+    Username = request.user.username # Retrieves username of current user
+    cart = Cart.objects.all().filter(Username=Username) # Retrieves items in cart of current user
 
     for item in cart:
-        totalcarttemp=item.Price + totalcarttemp
+        totalcarttemp=item.Price + totalcarttemp #Calculates total of items in cart
 
     context = {
-       "cart" : Cart.objects.all().filter(Username=Username),
+       "cart" : Cart.objects.all().filter(Username=Username), #Calculates total of items in cart
        "total" :totalcarttemp
      }
 
     return render(request, "checkout.html",context)
+
+def deletecart(request):
+
+    username = request.user.username # Retrieves username of current user
+
+    Cart.objects.filter(Username=username).delete()
+
+    return render(request, "deleted.html")

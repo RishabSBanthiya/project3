@@ -1,0 +1,21 @@
+<!-- templates/home.html-->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<div class="added">
+<p>Cart has been cleared<p>
+<a class="btn btn-outline-success" href='/menu'>Continue{{item}}</a>
+</div>
+
+{% else %}
+<h1 id="logincheck">Log in or sign up to order!</h1>
+<button class=" btn btn-light"><a href="{% url 'login' %}">Login</a></button>
+<button class=" btn btn-light"><a href="{% url 'signup' %}">Sign Up</a></button>
+
+
+{% endif %}
+{% endblock %}

@@ -27,11 +27,14 @@
         <td>{{ item.Price }}</t>
 
 
+
+
     </tr>
     {% endfor %}
 </table>
 <br>
 <h6>Total:{{ total }}</h6>
+<td> <a id="place" class=" btn btn-light" href="{% url 'del' %}">  Clear cart</a></td>
 <a id="place" class=" btn btn-light" href="{% url 'checkout' %}"> Continue to checkout</a>
 
 {% else %}

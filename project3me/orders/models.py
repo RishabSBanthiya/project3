@@ -22,16 +22,21 @@ class Toppings(models.Model):
 class Pizza(models.Model):
     Regular='RG'
     Sicilian='SC'
-    TYPE_CHOICES=(
-        (Regular,'Regular'),
-        (Sicilian,'Sicilian' )
-        )
+
+    # TYPE_CHOICES=(
+    #     (Regular,'Regular'),
+    #     (Sicilian,'Sicilian' )
+    #     ) #Defines the pizza type choices
+
     Small='SM'
     Large='LG'
-    TYPE_CHOICES=((Regular,'Regular'),(Sicilian,'Sicilian') )
+
+    TYPE_CHOICES=((Regular,'Regular'),(Sicilian,'Sicilian') ) #Defines the pizza type choices
+
     SIZE_CHOICES=(
         (Small,'Small'),
         (Large,'Large'))
+
     Cheese='Cheese'
     first="1"
     second='2'
@@ -39,14 +44,13 @@ class Pizza(models.Model):
     fourth='4'
     fifth='5'
     Special='SPECIAL'
+
     NUM_TOPPING_CHOICES=(
     (Cheese,'Cheese'),
     (first,'1'),
     (second,'2'),
     (third,'3'),
-    (fourth,'4'),
-    (fifth,'5'),
-    (Special,'SPECIAL'))
+    (Special,'SPECIAL')) #Defines the topping  choices
 
     PizzaDish = models.CharField(
         choices=TYPE_CHOICES,
@@ -95,13 +99,16 @@ class Sub(models.Model):
     Large='LG'
     Cheese='CH'
     NoCheese='NCH'
+
     SIZE_CHOICES=(
         (Small,'Small'),
         (Large,'Large'))
+
     CHEESE_CHOICES=(
         (Cheese,'Cheese'),
         (NoCheese,'NoCheese'),
         )
+
     Sub=models.CharField(max_length=64)
 
     Size=models.CharField(
