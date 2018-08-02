@@ -31,7 +31,17 @@
 
         <td>{{ item.Num_Toppings }}</td>
 
-<td> <a class=" btn btn-outline-secondary" href="{% url 'add' item item.Price %}">Add To Cart</a> </td>
+            <td>
+            <form method="post" >
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit" class="btn btn-light">Add</button>
+            </form>
+        </td>
+
+
+<td> <a class=" btn btn-outline-secondary" href="{% url 'add' item item.Price form.Toppings.value  %}">Add To Cart</a> </td>
+
     </tr>
      </tbody>
     {% endfor %}

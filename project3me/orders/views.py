@@ -29,6 +29,7 @@ def pizzachoices(request):
 def menupizza(request):
 
      context = {
+
        "form": PizzaForm(request.POST),
        "pizza" : Pizza.objects.all()
      }
@@ -66,6 +67,7 @@ def menupasta(request):
 def menupizzasic(request):
 
      context = {
+         "form": PizzaForm(request.POST),
        "pizza" : PizzaSic.objects.all()
      }
      return render(request, "pizzasic.html",context)
@@ -77,8 +79,12 @@ def add_to_cart(request,**kwargs):
     username = request.user.username
     items=kwargs['items']
     price=kwargs['prices']
+    top=(kwargs['top'])
+    newtop = top[0]
 
     cart_instance = Cart.objects.create(Username=username,Items=items,Price=price)
+    cart_instance.Toppings.add(2)
+    cart_instance.save()
 
     context = {
        "order" : Cart.objects.all().filter(Username=username),

@@ -206,7 +206,7 @@ class Cart(models.Model):
         decimal_places=2,
         default=1
         )
-    Toppings=models.ManyToManyField(Toppings,null=True)
+    Toppings=models.ManyToManyField(Toppings)
 
 
     def __str__(self):
