@@ -104,7 +104,7 @@ def view(request):
 
     global total #Calculates total due by user
     total=0
-    for item in orderall:
+    for item in order:
         total=total+item.Price
 
     context = {

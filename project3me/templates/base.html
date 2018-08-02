@@ -65,8 +65,14 @@
         </li>
 
         {% if request.user.is_superuser %}
+        Shows only if user is superuser-->
         <li class="nav-item">
           <a class="nav-link" href="/ordersummary">Orders </a>
+        </li>
+
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="/order">Orders </a>
         </li>
         {% endif %}
 
