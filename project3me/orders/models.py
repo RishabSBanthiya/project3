@@ -82,7 +82,7 @@ class Pasta(models.Model):
     PastaDish=models.CharField( max_length = 64)
 
     Price=models.DecimalField(
-        max_digits=3,
+        max_digits=5,
         decimal_places=2,
         default=1
         )
@@ -108,12 +108,9 @@ class Sub(models.Model):
         max_length=64,
         choices=SIZE_CHOICES,
         )
-    Cheese=models.CharField(
-        max_length=64,
-        choices=CHEESE_CHOICES)
 
     Price=models.DecimalField(
-        max_digits=3,
+        max_digits=5,
         decimal_places=2,
         default=1
         )
@@ -136,7 +133,7 @@ class Dinner(models.Model):
         )
 
     Price=models.DecimalField(
-        max_digits=3,
+        max_digits=5,
         decimal_places=2,
         default=1
         )
@@ -149,7 +146,7 @@ class Salad(models.Model):
     Salad=models.CharField( max_length=64)
 
     Price=models.DecimalField(
-        max_digits=3,
+        max_digits=5,
         decimal_places=2,
         default=1
         )
@@ -165,12 +162,13 @@ class Orders(models.Model):
     Status=models.TextField(default="Ordered")
     Date=models.DateField(datetime.now())
     Price=models.DecimalField(
-        max_digits=3,
+        max_digits=5,
         decimal_places=2,
         default=1
         )
-    # Toppings=models.TextField(default='Cheese')
+
     Toppings=models.ManyToManyField(Toppings,blank = True,)
+
 
 
 
@@ -184,7 +182,7 @@ class Cart(models.Model):
     Items=models.TextField()
     Status=models.TextField(default="In Cart")
     Price=models.DecimalField(
-        max_digits=3,
+        max_digits=5,
         decimal_places=2,
         default=1
         )
@@ -195,3 +193,61 @@ class Cart(models.Model):
         return f" {self.Username} {self.Items} {self.Status} "
 
 #-------------------------------------------------------------------------z
+
+
+class PizzaSic(models.Model):
+    Regular='RG'
+    Sicilian='SC'
+    TYPE_CHOICES=(
+        (Regular,'Regular'),
+        (Sicilian,'Sicilian' )
+        )
+    Small='SM'
+    Large='LG'
+    TYPE_CHOICES=((Regular,'Regular'),(Sicilian,'Sicilian') )
+    SIZE_CHOICES=(
+        (Small,'Small'),
+        (Large,'Large'))
+    Cheese='Cheese'
+    first="1"
+    second='2'
+    third='3'
+    fourth='4'
+    fifth='5'
+    Special='SPECIAL'
+    NUM_TOPPING_CHOICES=(
+    (Cheese,'Cheese'),
+    (first,'1'),
+    (second,'2'),
+    (third,'3'),
+    (fourth,'4'),
+    (fifth,'5'),
+    (Special,'SPECIAL'))
+
+    PizzaDish = models.CharField(
+        choices=TYPE_CHOICES,
+        default=Regular,
+        max_length=64,
+    )
+
+    Size=models.CharField(
+        choices=SIZE_CHOICES,
+        default=Small,
+        max_length=64,
+        )
+
+    Price=models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=1
+        )
+
+    Num_Toppings = models.CharField(
+        max_length=64,
+        choices=NUM_TOPPING_CHOICES,
+        )
+
+
+
+    def __str__(self):
+        return f"{self.PizzaDish} {self.Size} {self.Num_Toppings}"

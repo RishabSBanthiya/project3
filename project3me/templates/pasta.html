@@ -25,7 +25,7 @@
 
         <td>{{ item.Price }}</td>
 
-<td> <a class=" btn btn-outline-secondary" href="{% url 'add' item %}">Add To Cart</a> </td>
+<td> <a class=" btn btn-outline-secondary" href="{% url 'add' item item.Price %}">Add To Cart</a> </td>
     </tr>
      </tbody>
     {% endfor %}

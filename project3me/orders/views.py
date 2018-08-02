@@ -21,6 +21,9 @@ def menu(request):
 
      return render(request, "mainmenu.html")
 
+def pizzachoices(request):
+
+     return render(request, "pizzachoices.html")
 
 def menupizza(request):
 
@@ -58,14 +61,22 @@ def menupasta(request):
      }
      return render(request, "pasta.html",context)
 
+def menupizzasic(request):
+
+     context = {
+       "pizza" : PizzaSic.objects.all()
+     }
+     return render(request, "pizzasic.html",context)
+
 
 #-------------------------------------------------------------------------
 def add_to_cart(request,**kwargs):
 
     username = request.user.username
     items=kwargs['items']
+    price=kwargs['prices']
 
-    cart_instance = Cart.objects.create(Username=username,Items=items)
+    cart_instance = Cart.objects.create(Username=username,Items=items,Price=price)
 
     context = {
        "order" : Cart.objects.all().filter(Username=username),
@@ -74,11 +85,18 @@ def add_to_cart(request,**kwargs):
     return render(request, "added.html",context)
 #-------------------------------------------------------------------------
 def view(request):
+
     Username = request.user.username
+    order=Orders.objects.all().filter(Username=Username,Status="Ordered")
+    global total
+    total=0
+    for item in order:
+        total=total+item.Price
 
     context = {
-       "order" : Orders.objects.all().filter(Username=Username)
-     }
+       "order" : order ,
+        "total":total
+    }
 
     return render(request, "order.html",context)
 #-------------------------------------------------------------------------
@@ -156,3 +174,18 @@ def about(request):
 
     return render(request, "about.html",)
 #-------------------------------------------------------------------------
+def checkout(request):
+    global totalcarttemp
+    totalcarttemp=Decimal(0.00)
+    Username = request.user.username
+    cart = Cart.objects.all().filter(Username=Username)
+
+    for item in cart:
+        totalcarttemp=item.Price + totalcarttemp
+
+    context = {
+       "cart" : Cart.objects.all().filter(Username=Username),
+       "total" :totalcarttemp
+     }
+
+    return render(request, "checkout.html",context)

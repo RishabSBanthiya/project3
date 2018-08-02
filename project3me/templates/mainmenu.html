@@ -5,10 +5,11 @@
 {% block content %}
 <h1 style="text-align:center;">MENU</h1>
 <ul class="list-group">
-<li class="list-group-item"><a href="{% url 'menupizza' %}">Pizza</a></li>
-<li class="list-group-item"><a href="{% url 'menupasta' %}">Pasta</a></li>
-<li class="list-group-item"><a href="{% url 'menudinner' %}">Dinner</a></li>
-<li class="list-group-item"><a href="{% url 'menusalad' %}">Salad</a></li>
-<li class="list-group-item"><a href="{% url 'menusub' %}">Sub</a></li>
-
+    <div id="mainmenu">
+<li class="list-group-item"><a class="btn btn-outline-info" href="{% url 'pizzachoices' %}">Pizza</a></li>
+<li class="list-group-item"><a class="btn btn-outline-info" href="{% url 'menupasta' %}">Pasta</a></li>
+<li class="list-group-item"><a class="btn btn-outline-info"href="{% url 'menudinner' %}">Dinner</a></li>
+<li class="list-group-item"><a class="btn btn-outline-info"href="{% url 'menusalad' %}">Salad</a></li>
+<li class="list-group-item"><a class="btn btn-outline-info"href="{% url 'menusub' %}">Sub</a></li>
+    </div>
 {% endblock %}

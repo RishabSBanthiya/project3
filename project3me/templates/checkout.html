@@ -5,7 +5,7 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-<h1 style="text-align:center;">CART</h1>
+<h1 style="text-align:center;">Confirm your order</h1>
 <table class="table">
 
       <thead>
@@ -32,7 +32,8 @@
 </table>
 <br>
 <h6>Total:{{ total }}</h6>
-<a id="place" class=" btn btn-light" href="{% url 'checkout' %}"> Continue to checkout</a>
+<a id="place" class=" btn btn-light" href="{% url 'order' %}">Place Order</a>
+
 
 {% else %}
 <h1 id="logincheck">Log in or sign up to order!</h1>

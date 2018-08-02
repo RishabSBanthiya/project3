@@ -45,5 +45,11 @@
 <br>
 <h6>Total: {{total}}</h6>
 
+{% else %}
+<h1 id="logincheck">Log in or sign up to order!</h1>
+<button class=" btn btn-light"><a href="{% url 'login' %}">Login</a></button>
+<button class=" btn btn-light"><a href="{% url 'signup' %}">Sign Up</a></button>
+
+
 {% endif %}
 {% endblock %}
